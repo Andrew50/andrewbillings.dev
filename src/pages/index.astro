@@ -1,0 +1,140 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import {
+  education,
+  experience,
+  projects,
+  site,
+  skills,
+} from "../data/site";
+
+const year = new Date().getFullYear();
+---
+
+<BaseLayout>
+  <div class="page">
+    <header class="site-header">
+      <a class="wordmark" href="/">{site.name}</a>
+      <nav class="nav" aria-label="Primary">
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#education">Education</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-name">
+        <h1 class="hero-name" id="hero-name">{site.name}</h1>
+        <p class="hero-role">{site.role}</p>
+        <p class="hero-tagline">{site.tagline}</p>
+        <div class="hero-actions">
+          <a class="action action-primary" href={site.github} target="_blank" rel="noopener noreferrer"
+            >GitHub</a
+          >
+          <a class="action" href={site.linkedin} target="_blank" rel="noopener noreferrer"
+            >LinkedIn</a
+          >
+          <a class="action" href={site.resume}>Resume</a>
+        </div>
+      </section>
+
+      <section class="section" id="experience" aria-labelledby="experience-title">
+        <h2 class="section-title" id="experience-title">Experience</h2>
+        {
+          experience.map((job) => (
+            <article class="entry">
+              <div class="entry-top">
+                <h3 class="entry-org">{job.company}</h3>
+                <p class="entry-meta">{job.dates}</p>
+              </div>
+              <p class="entry-role">
+                {job.role}
+                <span class="entry-meta"> · {job.location}</span>
+              </p>
+              <p class="entry-summary">{job.summary}</p>
+            </article>
+          ))
+        }
+      </section>
+
+      <section class="section" id="projects" aria-labelledby="projects-title">
+        <h2 class="section-title" id="projects-title">Projects</h2>
+        {
+          projects.map((project) => (
+            <article class="entry">
+              <div class="entry-top">
+                <h3 class="entry-org">{project.name}</h3>
+              </div>
+              <p class="entry-summary">{project.description}</p>
+              <p class="stack" aria-label="Technologies">
+                {project.stack.map((tech) => (
+                  <span>{tech}</span>
+                ))}
+              </p>
+              {(project.github || project.live) && (
+                <p class="links">
+                  {project.github && (
+                    <a href={project.github} target="_blank" rel="noopener noreferrer">
+                      GitHub
+                    </a>
+                  )}
+                  {project.live && (
+                    <a href={project.live} target="_blank" rel="noopener noreferrer">
+                      Live
+                    </a>
+                  )}
+                </p>
+              )}
+            </article>
+          ))
+        }
+      </section>
+
+      <section class="section" id="education" aria-labelledby="education-title">
+        <h2 class="section-title" id="education-title">Education</h2>
+        <article class="entry">
+          <div class="entry-top">
+            <h3 class="entry-org">{education.school}</h3>
+            <p class="entry-meta">{education.dates}</p>
+          </div>
+          <p class="entry-role">{education.degree}</p>
+          <p class="entry-summary">{education.detail}</p>
+        </article>
+      </section>
+
+      <section class="section" id="skills" aria-labelledby="skills-title">
+        <h2 class="section-title" id="skills-title">Skills</h2>
+        <div class="skills">
+          {
+            skills.map((group) => (
+              <div class="skill-row">
+                <p class="skill-label">{group.label}</p>
+                <p class="skill-items">{group.items}</p>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+
+      <section class="section" id="contact" aria-labelledby="contact-title">
+        <h2 class="section-title" id="contact-title">Contact</h2>
+        <div class="contact-list">
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+          <a href={site.github} target="_blank" rel="noopener noreferrer">github.com/Andrew50</a>
+          <a href={site.linkedin} target="_blank" rel="noopener noreferrer"
+            >linkedin.com/in/billinaj</a
+          >
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© {year} {site.name}</p>
+      <a href={site.github + "/andrewbillings.dev"} target="_blank" rel="noopener noreferrer"
+        >Source on GitHub</a
+      >
+    </footer>
+  </div>
+</BaseLayout>
