@@ -2,88 +2,95 @@ export const site = {
   name: "Andrew Billings",
   role: "Software Engineer",
   tagline:
-    "Building reliable systems across APIs, agents, and full-stack products.",
+    "Software engineer working across systems, infrastructure, and products.",
   email: "billingsandrewjohn@gmail.com",
   github: "https://github.com/Andrew50",
   linkedin: "https://linkedin.com/in/billinaj",
   resume: "/Andrew_Billings_Resume.pdf",
   url: "https://andrewbillings.dev",
+  education: "Computer Engineering at Purdue, graduating 2027.",
 } as const;
 
-export const experience = [
-  {
-    company: "Fiserv Corporation",
-    role: "Software Engineering Intern",
-    location: "Fishers, IN",
-    dates: "Jun 2026 – Aug 2026",
-    summary:
-      "Designed and shipped layered C#/.NET REST APIs with shared Dapper/Oracle data access, OpenAPI contracts, and unit-tested endpoint validation.",
-  },
-  {
-    company: "Hansen Gress Corporation",
-    role: "Software Engineering Intern",
-    location: "Juneau, AK (Remote)",
-    dates: "Jan 2025 – Mar 2026",
-    summary:
-      "Shipped an internal React/Go AI platform with a custom agent harness, multi-SaaS tool integrations, and production hardening that cut LLM costs ~80%.",
-  },
-] as const;
+export type ProjectLink = {
+  label: string;
+  href: string;
+};
 
 export type Project = {
+  slug: string;
   name: string;
   description: string;
   stack: string[];
-  github?: string;
-  live?: string;
+  image?: {
+    src: string;
+    alt: string;
+    width: number;
+    height: number;
+  };
+  links: ProjectLink[];
 };
 
 export const projects: Project[] = [
   {
+    slug: "stryde",
     name: "Stryde",
     description:
-      "Local-first iOS strength-training app with offline workout logging, progress analytics, and multi-device sync.",
-    stack: ["Swift", "SwiftUI", "GRDB", "Supabase", "Cloudflare"],
+      "Strength training for iOS with adaptive workout recommendations.",
+    stack: ["Swift", "SwiftUI", "Supabase"],
+    image: {
+      src: "/projects/stryde.jpg",
+      alt: "Stryde workout logging screen with set entry and estimated 1RM",
+      width: 452,
+      height: 960,
+    },
+    links: [{ label: "Website", href: "https://trystryde.app" }],
   },
   {
+    slug: "peripheral",
     name: "Peripheral",
     description:
-      "Real-time market screening, alerting, and backtesting across ~20K securities and ~1B OHLCV rows.",
-    stack: ["Go", "Svelte", "TimescaleDB", "Redis", "Kubernetes"],
-    github: "https://github.com/Andrew50/Peripheral",
+      "Market research and strategy platform built for large-scale historical data.",
+    stack: ["Go", "Python", "PostgreSQL", "Kubernetes"],
+    image: {
+      src: "/projects/peripheral.jpg",
+      alt: "Peripheral trading research interface with charting, watchlist, and assistant",
+      width: 1232,
+      height: 580,
+    },
+    links: [
+      { label: "GitHub", href: "https://github.com/Andrew50/peripheral" },
+    ],
   },
   {
-    name: "Goals",
+    slug: "goal-architecture",
+    name: "Goal Architecture",
     description:
-      "Personal goal planning and scheduling system with hierarchical progress tracking for 10k+ goals and tasks.",
-    stack: ["React", "Rust", "Neo4j", "Docker"],
-    github: "https://github.com/Andrew50/goals",
-    live: "https://goals.andrewbillings.dev",
+      "Personal planning and scheduling built around a graph of 10K+ goals and tasks.",
+    stack: ["Rust", "React", "Neo4j"],
+    image: {
+      src: "/projects/goals-network.jpg",
+      alt: "Goal Architecture network view showing a large interconnected goal graph",
+      width: 1400,
+      height: 723,
+    },
+    links: [
+      { label: "Website", href: "https://goals.andrewbillings.dev" },
+      { label: "GitHub", href: "https://github.com/Andrew50/goals" },
+    ],
+  },
+  {
+    slug: "sc2-overlay",
+    name: "SC2 Overlay",
+    description: "Branching build-order overlay for StarCraft II.",
+    stack: ["TypeScript", "Electron", "Cytoscape"],
+    image: {
+      src: "/projects/sc2-overlay.jpg",
+      alt: "SC2 Overlay build-order viewer with branching graph visualization",
+      width: 1400,
+      height: 957,
+    },
+    links: [
+      { label: "GitHub", href: "https://github.com/Andrew50/sc2-overlay" },
+    ],
   },
 ];
-
-export const education = {
-  school: "Purdue University",
-  degree: "B.S. Computer Engineering",
-  dates: "Aug 2023 – May 2027",
-  detail:
-    "Data Science Certificate; concentrations in Artificial Intelligence and Machine Learning, Computer Systems",
-} as const;
-
-export const skills = [
-  {
-    label: "Languages",
-    items: "Go, TypeScript, Python, C#, SQL, Swift, Rust, C/C++",
-  },
-  {
-    label: "Frameworks",
-    items: ".NET, React, Svelte, SwiftUI, FastAPI",
-  },
-  {
-    label: "Data",
-    items: "PostgreSQL, TimescaleDB, Redis, Neo4j, Qdrant, Supabase, Oracle",
-  },
-  {
-    label: "Infrastructure",
-    items: "Linux, Docker, Kubernetes, GitHub Actions, Cloudflare, GCP, DigitalOcean",
-  },
-] as const;

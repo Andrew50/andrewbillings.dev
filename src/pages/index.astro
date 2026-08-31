@@ -1,140 +1,177 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import {
-  education,
-  experience,
-  projects,
-  site,
-  skills,
-} from "../data/site";
+import { projects, site } from "../data/site";
 
-const year = new Date().getFullYear();
+const initial = projects[0];
 ---
 
 <BaseLayout>
   <div class="page">
-    <header class="site-header">
-      <a class="wordmark" href="/">{site.name}</a>
-      <nav class="nav" aria-label="Primary">
-        <a href="#experience">Experience</a>
-        <a href="#projects">Projects</a>
-        <a href="#education">Education</a>
-        <a href="#skills">Skills</a>
-        <a href="#contact">Contact</a>
-      </nav>
+    <header class="intro">
+      <div class="intro-copy">
+        <h1 class="intro-name">{site.name}</h1>
+        <p class="intro-lead">{site.tagline}</p>
+        <p class="intro-meta">{site.education}</p>
+        <nav class="intro-links" aria-label="Elsewhere">
+          <a href={site.github} target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href={site.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href={site.resume}>Résumé</a>
+          <a href={`mailto:${site.email}`}>Email</a>
+        </nav>
+      </div>
+      <img
+        class="intro-photo"
+        src="/headshot.jpg"
+        alt=""
+        width="192"
+        height="192"
+        decoding="async"
+      />
     </header>
 
     <main>
-      <section class="hero" aria-labelledby="hero-name">
-        <h1 class="hero-name" id="hero-name">{site.name}</h1>
-        <p class="hero-role">{site.role}</p>
-        <p class="hero-tagline">{site.tagline}</p>
-        <div class="hero-actions">
-          <a class="action action-primary" href={site.github} target="_blank" rel="noopener noreferrer"
-            >GitHub</a
-          >
-          <a class="action" href={site.linkedin} target="_blank" rel="noopener noreferrer"
-            >LinkedIn</a
-          >
-          <a class="action" href={site.resume}>Resume</a>
-        </div>
-      </section>
+      <section class="section" aria-labelledby="work-title">
+        <h2 class="section-title" id="work-title">Projects</h2>
 
-      <section class="section" id="experience" aria-labelledby="experience-title">
-        <h2 class="section-title" id="experience-title">Experience</h2>
-        {
-          experience.map((job) => (
-            <article class="entry">
-              <div class="entry-top">
-                <h3 class="entry-org">{job.company}</h3>
-                <p class="entry-meta">{job.dates}</p>
-              </div>
-              <p class="entry-role">
-                {job.role}
-                <span class="entry-meta"> · {job.location}</span>
-              </p>
-              <p class="entry-summary">{job.summary}</p>
-            </article>
-          ))
-        }
-      </section>
+        <div class="work" id="work">
+          <ul class="project-list" role="list">
+            {
+              projects.map((project) => (
+                <li>
+                  <article
+                    class="project"
+                    data-preview={project.image?.src}
+                    data-preview-alt={project.image?.alt}
+                    data-preview-kind={
+                      project.slug === "stryde" ? "phone" : "wide"
+                    }
+                    data-preview-caption={project.name}
+                    data-preview-width={project.image?.width}
+                    data-preview-height={project.image?.height}
+                  >
+                    <div class="project-heading">
+                      <h3 class="project-name">{project.name}</h3>
+                    </div>
+                    <p class="project-desc">{project.description}</p>
+                    <p class="project-stack" aria-label="Technologies">
+                      {project.stack.join(" · ")}
+                    </p>
+                    <p class="project-links">
+                      {project.links.map((link) => (
+                        <a
+                          class="project-link"
+                          href={link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {link.label}
+                          <span aria-hidden="true">↗</span>
+                        </a>
+                      ))}
+                    </p>
+                  </article>
+                </li>
+              ))
+            }
+          </ul>
 
-      <section class="section" id="projects" aria-labelledby="projects-title">
-        <h2 class="section-title" id="projects-title">Projects</h2>
-        {
-          projects.map((project) => (
-            <article class="entry">
-              <div class="entry-top">
-                <h3 class="entry-org">{project.name}</h3>
-              </div>
-              <p class="entry-summary">{project.description}</p>
-              <p class="stack" aria-label="Technologies">
-                {project.stack.map((tech) => (
-                  <span>{tech}</span>
-                ))}
-              </p>
-              {(project.github || project.live) && (
-                <p class="links">
-                  {project.github && (
-                    <a href={project.github} target="_blank" rel="noopener noreferrer">
-                      GitHub
-                    </a>
-                  )}
-                  {project.live && (
-                    <a href={project.live} target="_blank" rel="noopener noreferrer">
-                      Live
-                    </a>
-                  )}
-                </p>
-              )}
-            </article>
-          ))
-        }
-      </section>
-
-      <section class="section" id="education" aria-labelledby="education-title">
-        <h2 class="section-title" id="education-title">Education</h2>
-        <article class="entry">
-          <div class="entry-top">
-            <h3 class="entry-org">{education.school}</h3>
-            <p class="entry-meta">{education.dates}</p>
-          </div>
-          <p class="entry-role">{education.degree}</p>
-          <p class="entry-summary">{education.detail}</p>
-        </article>
-      </section>
-
-      <section class="section" id="skills" aria-labelledby="skills-title">
-        <h2 class="section-title" id="skills-title">Skills</h2>
-        <div class="skills">
           {
-            skills.map((group) => (
-              <div class="skill-row">
-                <p class="skill-label">{group.label}</p>
-                <p class="skill-items">{group.items}</p>
-              </div>
-            ))
+            initial?.image && (
+              <aside class="preview" id="work-preview" aria-hidden="true">
+                <div
+                  class="preview-frame"
+                  data-kind="wide"
+                  id="work-preview-frame"
+                >
+                  <img id="work-preview-image" alt="" decoding="async" />
+                </div>
+                <p class="preview-caption" id="work-preview-caption"></p>
+              </aside>
+            )
           }
         </div>
       </section>
-
-      <section class="section" id="contact" aria-labelledby="contact-title">
-        <h2 class="section-title" id="contact-title">Contact</h2>
-        <div class="contact-list">
-          <a href={`mailto:${site.email}`}>{site.email}</a>
-          <a href={site.github} target="_blank" rel="noopener noreferrer">github.com/Andrew50</a>
-          <a href={site.linkedin} target="_blank" rel="noopener noreferrer"
-            >linkedin.com/in/billinaj</a
-          >
-        </div>
-      </section>
     </main>
-
-    <footer class="site-footer">
-      <p>© {year} {site.name}</p>
-      <a href={site.github + "/andrewbillings.dev"} target="_blank" rel="noopener noreferrer"
-        >Source on GitHub</a
-      >
-    </footer>
   </div>
 </BaseLayout>
+
+<script>
+  const work = document.getElementById("work");
+  const preview = document.getElementById("work-preview");
+  const rows = Array.from(
+    document.querySelectorAll<HTMLElement>(".project[data-preview]"),
+  );
+  const frame = document.getElementById("work-preview-frame");
+  const image = document.getElementById(
+    "work-preview-image",
+  ) as HTMLImageElement | null;
+  const caption = document.getElementById("work-preview-caption");
+  const previewEnabled = () => window.matchMedia("(min-width: 900px)").matches;
+
+  if (work && preview && rows.length && frame && image && caption) {
+    const hide = () => {
+      preview.classList.remove("is-visible");
+      rows.forEach((item) => item.classList.remove("is-active"));
+    };
+
+    const activate = (row: HTMLElement) => {
+      if (!previewEnabled()) return;
+
+      const src = row.dataset.preview;
+      const alt = row.dataset.previewAlt ?? "";
+      const kind = row.dataset.previewKind ?? "wide";
+      const label = row.dataset.previewCaption ?? "";
+      const width = row.dataset.previewWidth;
+      const height = row.dataset.previewHeight;
+
+      if (!src) return;
+
+      const top =
+        row.getBoundingClientRect().top -
+        work.getBoundingClientRect().top +
+        work.scrollTop;
+
+      rows.forEach((item) => item.classList.remove("is-active"));
+      row.classList.add("is-active");
+      preview.style.top = `${Math.max(0, top)}px`;
+      preview.classList.add("is-visible");
+      frame.setAttribute("data-kind", kind);
+      caption.textContent = label;
+      image.setAttribute("alt", alt);
+      if (width) image.setAttribute("width", width);
+      if (height) image.setAttribute("height", height);
+
+      if (image.getAttribute("src") === src) {
+        image.style.opacity = "1";
+        return;
+      }
+
+      const show = () => {
+        image.style.opacity = "1";
+      };
+
+      image.style.opacity = "0";
+      image.addEventListener("load", show, { once: true });
+      image.setAttribute("src", src);
+      if (image.complete) show();
+    };
+
+    rows.forEach((row) => {
+      row.addEventListener("mouseenter", () => activate(row));
+      row.addEventListener("focusin", () => activate(row));
+    });
+
+    work.addEventListener("mouseleave", hide);
+    work.addEventListener("focusout", (event) => {
+      const next = event.relatedTarget as Node | null;
+      if (!next || !work.contains(next)) hide();
+    });
+
+    rows.forEach((row) => {
+      const src = row.dataset.preview;
+      if (!src) return;
+      const preload = new Image();
+      preload.src = src;
+    });
+  }
+</script>

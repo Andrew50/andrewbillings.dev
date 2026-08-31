@@ -1,23 +1,24 @@
 # andrewbillings.dev
 
-Personal software engineering portfolio.
+Personal site for Andrew Billings.
 
-Built with Astro and TypeScript. Hosted on Cloudflare Workers.
+## Development
 
-https://andrewbillings.dev
-
-## Develop
-
-```bash
+```sh
 npm install
 npm run dev
 ```
 
-## Build & deploy
+Background mode:
 
-```bash
-npm run build
-npm run deploy
+```sh
+astro dev --background
 ```
 
-Production deploys normally go through Cloudflare Workers Git integration on push to `main`.
+## Deploy
+
+Static Astro build to Cloudflare Workers/Pages via Wrangler:
+
+```sh
+npm run deploy
+```

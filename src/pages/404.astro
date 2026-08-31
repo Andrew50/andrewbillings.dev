@@ -4,23 +4,11 @@ import { site } from "../data/site";
 ---
 
 <BaseLayout title={`Page not found — ${site.name}`} description="That page does not exist.">
-  <div class="page">
-    <header class="site-header">
-      <a class="wordmark" href="/">{site.name}</a>
-      <nav class="nav" aria-label="Primary">
-        <a href="/">Home</a>
-      </nav>
-    </header>
-
+  <div class="page page-narrow">
     <main>
-      <section class="hero">
-        <h1 class="hero-name">404</h1>
-        <p class="hero-role">Page not found</p>
-        <p class="hero-tagline">That URL doesn’t exist on this site.</p>
-        <div class="hero-actions">
-          <a class="action action-primary" href="/">Back home</a>
-        </div>
-      </section>
+      <h1 class="not-found-title">Page not found</h1>
+      <p class="not-found-copy">That URL doesn’t exist on this site.</p>
+      <a class="not-found-link" href="/">← Back home</a>
     </main>
   </div>
 </BaseLayout>
