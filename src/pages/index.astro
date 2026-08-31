@@ -61,11 +61,11 @@ const initial = projects[0];
                         <a
                           class="project-link"
                           href={link.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                          target={link.external ? "_blank" : undefined}
+                          rel={link.external ? "noopener noreferrer" : undefined}
                         >
                           {link.label}
-                          <span aria-hidden="true">↗</span>
+                          {link.external && <span aria-hidden="true">↗</span>}
                         </a>
                       ))}
                     </p>

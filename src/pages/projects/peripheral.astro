@@ -1,0 +1,49 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getProject, site } from "../../data/site";
+
+const project = getProject("peripheral");
+if (!project) {
+  throw new Error("Peripheral project missing from site data");
+}
+
+const youtubeId = project.youtubeId?.trim() ?? "";
+const title = `${project.name} demo — ${site.name}`;
+const description = project.description;
+const embedSrc = youtubeId
+  ? `https://www.youtube-nocookie.com/embed/${youtubeId}?rel=0&modestbranding=1`
+  : null;
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="demo-page">
+    <a class="demo-back" href="/">← Back</a>
+
+    <div class="demo-stage">
+      <h1 class="demo-title">{project.name}</h1>
+      {
+        embedSrc ? (
+          <div class="demo-frame">
+            <iframe
+              src={embedSrc}
+              title={`${project.name} demo video`}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+              loading="lazy"
+              referrerpolicy="strict-origin-when-cross-origin"
+            />
+          </div>
+        ) : (
+          <div class="demo-empty" role="status">
+            <p>Demo video isn’t linked yet.</p>
+            <p class="demo-empty-hint">
+              Upload the recording to YouTube as Unlisted, then set{" "}
+              <code>youtubeId</code> for Peripheral in{" "}
+              <code>src/data/site.ts</code>.
+            </p>
+          </div>
+        )
+      }
+    </div>
+  </div>
+</BaseLayout>

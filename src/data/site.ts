@@ -14,6 +14,7 @@ export const site = {
 export type ProjectLink = {
   label: string;
   href: string;
+  external?: boolean;
 };
 
 export type Project = {
@@ -27,6 +28,8 @@ export type Project = {
     width: number;
     height: number;
   };
+  /** YouTube video ID for an optional demo page */
+  youtubeId?: string;
   links: ProjectLink[];
 };
 
@@ -43,7 +46,9 @@ export const projects: Project[] = [
       width: 452,
       height: 960,
     },
-    links: [{ label: "Website", href: "https://trystryde.app" }],
+    links: [
+      { label: "Website", href: "https://trystryde.app", external: true },
+    ],
   },
   {
     slug: "peripheral",
@@ -57,8 +62,14 @@ export const projects: Project[] = [
       width: 1232,
       height: 580,
     },
+    youtubeId: "bMt3_SvlBbM",
     links: [
-      { label: "GitHub", href: "https://github.com/Andrew50/peripheral" },
+      { label: "Demo", href: "/projects/peripheral" },
+      {
+        label: "GitHub",
+        href: "https://github.com/Andrew50/peripheral",
+        external: true,
+      },
     ],
   },
   {
@@ -74,8 +85,12 @@ export const projects: Project[] = [
       height: 723,
     },
     links: [
-      { label: "Website", href: "https://goals.andrewbillings.dev" },
-      { label: "GitHub", href: "https://github.com/Andrew50/goals" },
+      {
+        label: "Website",
+        href: "https://goals.andrewbillings.dev",
+        external: true,
+      },
+      { label: "GitHub", href: "https://github.com/Andrew50/goals", external: true },
     ],
   },
   {
@@ -90,7 +105,15 @@ export const projects: Project[] = [
       height: 957,
     },
     links: [
-      { label: "GitHub", href: "https://github.com/Andrew50/sc2-overlay" },
+      {
+        label: "GitHub",
+        href: "https://github.com/Andrew50/sc2-overlay",
+        external: true,
+      },
     ],
   },
 ];
+
+export function getProject(slug: string): Project | undefined {
+  return projects.find((project) => project.slug === slug);
+}
