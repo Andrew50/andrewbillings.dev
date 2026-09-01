@@ -1,20 +1,21 @@
 export const site = {
   name: "Andrew Billings",
   role: "Software Engineer",
-  tagline:
-    "Software engineer working across systems, infrastructure, and products.",
+  description:
+    "Personal site of Andrew Billings, a software engineer and Computer Engineering student at Purdue University.",
   email: "billingsandrewjohn@gmail.com",
   github: "https://github.com/Andrew50",
   linkedin: "https://linkedin.com/in/billinaj",
   resume: "/Andrew_Billings_Resume.pdf",
   url: "https://andrewbillings.dev",
-  education: "Computer Engineering at Purdue, graduating 2027.",
+  education: "Computer Engineering at Purdue · 2027",
 } as const;
 
 export type ProjectLink = {
   label: string;
   href: string;
   external?: boolean;
+  arrow?: boolean;
 };
 
 export type Project = {
@@ -38,8 +39,8 @@ export const projects: Project[] = [
     slug: "stryde",
     name: "Stryde",
     description:
-      "Strength training for iOS with adaptive workout recommendations.",
-    stack: ["Swift", "SwiftUI", "Supabase"],
+      "iOS strength-training app with adaptive workout recommendations.",
+    stack: ["Swift", "SwiftUI", "GRDB", "Supabase"],
     image: {
       src: "/projects/stryde.jpg",
       alt: "Stryde workout logging screen with set entry and estimated 1RM",
@@ -54,8 +55,8 @@ export const projects: Project[] = [
     slug: "peripheral",
     name: "Peripheral",
     description:
-      "Market research and strategy platform built for large-scale historical data.",
-    stack: ["Go", "Python", "PostgreSQL", "Kubernetes"],
+      "Trading research and strategy platform for backtesting across ~1B historical market records.",
+    stack: ["Go", "Python", "SvelteKit", "PostgreSQL/TimescaleDB", "Kubernetes"],
     image: {
       src: "/projects/peripheral.jpg",
       alt: "Peripheral trading research interface with charting, watchlist, and assistant",
@@ -64,7 +65,7 @@ export const projects: Project[] = [
     },
     youtubeId: "bMt3_SvlBbM",
     links: [
-      { label: "Demo", href: "/projects/peripheral" },
+      { label: "Demo", href: "/projects/peripheral", arrow: true },
       {
         label: "GitHub",
         href: "https://github.com/Andrew50/peripheral",
@@ -76,7 +77,7 @@ export const projects: Project[] = [
     slug: "goal-architecture",
     name: "Goal Architecture",
     description:
-      "Personal planning and scheduling built around a graph of 10K+ goals and tasks.",
+      "Personal planning system built around a graph of 10K+ goals and tasks.",
     stack: ["Rust", "React", "Neo4j"],
     image: {
       src: "/projects/goals-network.jpg",
@@ -101,8 +102,8 @@ export const projects: Project[] = [
     image: {
       src: "/projects/sc2-overlay.jpg",
       alt: "SC2 Overlay build-order viewer with branching graph visualization",
-      width: 1400,
-      height: 957,
+      width: 1280,
+      height: 837,
     },
     links: [
       {

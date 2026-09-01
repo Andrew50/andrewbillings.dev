@@ -10,12 +10,15 @@ const initial = projects[0];
     <header class="intro">
       <div class="intro-copy">
         <h1 class="intro-name">{site.name}</h1>
-        <p class="intro-lead">{site.tagline}</p>
+        <p class="intro-role">{site.role}</p>
         <p class="intro-meta">{site.education}</p>
         <nav class="intro-links" aria-label="Elsewhere">
           <a href={site.github} target="_blank" rel="noopener noreferrer">GitHub</a>
+          <span class="intro-link-sep" aria-hidden="true">·</span>
           <a href={site.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <span class="intro-link-sep" aria-hidden="true">·</span>
           <a href={site.resume}>Résumé</a>
+          <span class="intro-link-sep" aria-hidden="true">·</span>
           <a href={`mailto:${site.email}`}>Email</a>
         </nav>
       </div>
@@ -23,8 +26,8 @@ const initial = projects[0];
         class="intro-photo"
         src="/headshot.jpg"
         alt=""
-        width="192"
-        height="192"
+        width="152"
+        height="152"
         decoding="async"
       />
     </header>
@@ -43,7 +46,11 @@ const initial = projects[0];
                     data-preview={project.image?.src}
                     data-preview-alt={project.image?.alt}
                     data-preview-kind={
-                      project.slug === "stryde" ? "phone" : "wide"
+                      project.slug === "stryde"
+                        ? "phone"
+                        : project.slug === "sc2-overlay"
+                          ? "wide-plain"
+                          : "wide"
                     }
                     data-preview-caption={project.name}
                     data-preview-width={project.image?.width}
@@ -57,16 +64,23 @@ const initial = projects[0];
                       {project.stack.join(" · ")}
                     </p>
                     <p class="project-links">
-                      {project.links.map((link) => (
-                        <a
-                          class="project-link"
-                          href={link.href}
-                          target={link.external ? "_blank" : undefined}
-                          rel={link.external ? "noopener noreferrer" : undefined}
-                        >
-                          {link.label}
-                          {link.external && <span aria-hidden="true">↗</span>}
-                        </a>
+                      {project.links.map((link, index) => (
+                        <>
+                          {index > 0 && (
+                            <span class="project-link-sep" aria-hidden="true">·</span>
+                          )}
+                          <a
+                            class="project-link"
+                            href={link.href}
+                            target={link.external ? "_blank" : undefined}
+                            rel={link.external ? "noopener noreferrer" : undefined}
+                          >
+                            {link.label}
+                            {(link.external || link.arrow) && (
+                              <span aria-hidden="true"> ↗</span>
+                            )}
+                          </a>
+                        </>
                       ))}
                     </p>
                   </article>

@@ -127,8 +127,8 @@ ul {
 }
 
 .intro-photo {
-  width: 6.5rem;
-  height: 6.5rem;
+  width: 5.5rem;
+  height: 5.5rem;
   border-radius: 50%;
   object-fit: cover;
   background: var(--line);
@@ -141,8 +141,8 @@ ul {
   }
 
   .intro-photo {
-    width: 12rem;
-    height: 12rem;
+    width: 9.5rem;
+    height: 9.5rem;
     justify-self: center;
   }
 }
@@ -154,10 +154,10 @@ ul {
   line-height: 1.2;
 }
 
-.intro-lead {
-  margin-top: var(--space-3);
+.intro-role {
+  margin-top: var(--space-2);
   color: var(--ink);
-  max-width: 34rem;
+  font-size: var(--text-base);
 }
 
 .intro-meta {
@@ -169,10 +169,16 @@ ul {
 .intro-links {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-2) var(--space-4);
+  align-items: center;
+  gap: var(--space-2);
   margin-top: var(--space-5);
   font-size: var(--text-sm);
   color: var(--muted);
+}
+
+.intro-link-sep {
+  color: var(--faint);
+  user-select: none;
 }
 
 .intro-links a {
@@ -272,43 +278,27 @@ ul {
 .project-links {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: var(--space-2);
   margin-top: var(--space-3);
+  font-size: var(--text-sm);
+}
+
+.project-link-sep {
+  color: var(--faint);
+  user-select: none;
 }
 
 .project-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.35rem 0.7rem;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--bg-elevated);
-  color: var(--ink);
-  font-size: var(--text-sm);
-  font-weight: 500;
+  color: var(--muted);
   text-decoration: none;
-  transition:
-    border-color 140ms var(--ease),
-    color 140ms var(--ease);
-}
-
-.project-link span {
-  color: var(--faint);
-  font-size: 0.85em;
   transition: color 140ms var(--ease);
 }
 
 .project-link:hover,
 .project-link:focus-visible {
   color: var(--accent);
-  border-color: color-mix(in srgb, var(--accent) 40%, var(--line));
   text-decoration: none;
-}
-
-.project-link:hover span,
-.project-link:focus-visible span {
-  color: var(--accent);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -375,6 +365,12 @@ ul {
 .preview-frame[data-kind="phone"] img {
   object-fit: cover;
   object-position: top center;
+}
+
+.preview-frame[data-kind="wide-plain"] {
+  border: none;
+  border-radius: 0;
+  background: transparent;
 }
 
 .preview-caption {
